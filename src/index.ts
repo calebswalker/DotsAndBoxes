@@ -2,7 +2,7 @@ import { RNG } from "./agent/random";
 import { DotsAndBoxesGraph, Move } from "./graph/dotsandboxesgraph";
 import { UndirectedEdge } from "./graph/undirectedgraph";
 import { Player, PlayerColor } from "./player";
-import { WorkerMessage, WorkerResponse } from "./worker/workercommon";
+import { WorkerMessage, WorkerResponse, WorkerSettings } from "./worker/workercommon";
 
 const ai = new Worker("./worker.js");
 ai.onmessage = () => {};
@@ -60,6 +60,13 @@ if (isNaN(tempHuman) || (tempHuman != 1 && tempHuman != 2 && tempHuman != -2 && 
     HUMAN_PLAYER = Player.Player1;
 } else {
     HUMAN_PLAYER = tempHuman == 1 ? Player.Player1 : Player.Player2;
+}
+
+const aiSettings: WorkerSettings = {};
+
+const aiThreshold = urlParams.get("threshold") ?? undefined;
+if (aiThreshold && !isNaN(parseInt(aiThreshold))) {
+    aiSettings.threshold = parseInt(aiThreshold);
 }
 
 const DEBUG_HUMAN_ONLY = !!urlParams.get("debugHuman");
@@ -333,6 +340,7 @@ async function gameLoop() {
                 ai.postMessage({
                     game: { moves: GAME.getAllPlayedMoves() },
                     currentPlayer: HUMAN_PLAYER == Player.Player1 ? Player.Player2 : Player.Player1,
+                    settings: aiSettings,
                 } as WorkerMessage);
             });
 

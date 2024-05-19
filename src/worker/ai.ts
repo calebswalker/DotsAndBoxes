@@ -1,8 +1,6 @@
 import { EndgameAlphaBetaAgent } from "../agent/endgamealphabeta";
 import { SmartRandomAgent, SmartRandomAgentState } from "../agent/smartrandomagent";
 import { DotsAndBoxesGraph, Move, reduceAllMoves } from "../graph/dotsandboxesgraph";
-import { UndirectedEdge } from "../graph/undirectedgraph";
-import { Player } from "../player";
 import { WorkerMessage, WorkerResponse } from "./workercommon";
 
 console.log("WORKER LIVE");
@@ -10,8 +8,9 @@ console.log("WORKER LIVE");
 self.onmessage = (event) => {
     const data = event.data as WorkerMessage;
 
-    const { moves } = data.game as { moves: UndirectedEdge[] };
-    const currentPlayer = data.currentPlayer as Player;
+    const { moves } = data.game;
+    const currentPlayer = data.currentPlayer;
+    const settings = data.settings;
 
     let action: Move | undefined;
     let value: number | undefined;
@@ -24,7 +23,7 @@ self.onmessage = (event) => {
     const safeEdges = dotsAndBoxesGraph.getUnclaimedEdgesThatDoNotCreateABox();
     console.log("Safe Edge Count", safeEdges.length);
 
-    if (safeEdges.length > 24) {
+    if (safeEdges.length > (settings?.threshold ?? 24)) {
         const agent = new SmartRandomAgent();
         const result = agent.getOptimalAction(new SmartRandomAgentState(dotsAndBoxesGraph));
         action = result.action;
