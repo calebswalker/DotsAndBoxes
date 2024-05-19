@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>Dots and Boxes</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    </head>
+
+    <body>
+        <table id="board">
+            <tbody>
+                <script>
+                    const toBoxId = (row, col) => row * 10 + col;
+
+                    for (let row = 1; row < 5; row++) {
+                        document.write(`<tr>`);
+                        for (let col = 1; col < 7; col++) {
+                            document.write(`<td class="dot" id="D${row},${col}"></td>`);
+                            document.write(
+                                `<td class="edgeH" id="E${toBoxId(row - 1, col)}-${toBoxId(row, col)}"></td>`
+                            );
+                        }
+                        document.write(`<td class="dot" id="D${row},${7}"></td>`);
+                        document.write(`</tr>`);
+
+                        document.write(`<tr>`);
+                        for (let col = 1; col < 7; col++) {
+                            document.write(
+                                `<td class="edgeV" id="E${toBoxId(row, col - 1)}-${toBoxId(row, col)}"></td>`
+                            );
+                            document.write(`<td class="square" id="S${toBoxId(row, col)}"></td>`);
+                        }
+                        document.write(`<td class="edgeV" id="E${toBoxId(row, 6)}-${toBoxId(row, 7)}"></td>`);
+                        document.write(`</tr>`);
+                    }
+
+                    document.write(`<tr>`);
+                    for (let col = 1; col < 7; col++) {
+                        document.write(`<td class="dot" id="D${5},${col}"></td>`);
+                        document.write(`<td class="edgeH" id="E${toBoxId(4, col)}-${toBoxId(5, col)}"></td>`);
+                    }
+                    document.write(`<td class="dot" id="D${5},${7}"></td>`);
+                    document.write(`</tr>`);
+                </script>
+            </tbody>
+        </table>
+    </body>
+
+    <script src="./main.js"></script>
+</html>

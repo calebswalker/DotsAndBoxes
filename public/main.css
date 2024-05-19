@@ -1,0 +1,70 @@
+body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#board {
+    border-width: 1vmin;
+    border-style: groove;
+    padding: 1vmin;
+
+    transition: border-color 0.5s;
+}
+
+.dot {
+    width: 4vmin;
+    height: 4vmin;
+    background-color: black;
+    border-radius: 45%;
+}
+.edgeH {
+    width: 12vmin;
+    height: 4vmin;
+    background: linear-gradient(to bottom, white 33%, lightgray 33% 67%, white 67%);
+
+    transition: ease 0.5s;
+}
+.edgeV {
+    width: 4vmin;
+    height: 12vmin;
+    background: linear-gradient(to right, white 33%, lightgray 33% 67%, white 67%);
+}
+.square {
+    width: 12vmin;
+    height: 12vmin;
+    border-radius: 10%;
+    text-align: center;
+    font-size: 6vmin;
+
+    transition: background-color 0.5s;
+}
+
+.edgeH.clickable:hover {
+    background: linear-gradient(to bottom, white 33%, #e3e356 33% 67%, white 67%);
+}
+.edgeV.clickable:hover {
+    background: linear-gradient(to right, white 33%, #e3e356 33% 67%, white 67%);
+}
+
+.square.p1 {
+    background-color: #dd4124;
+    color: #3a1710;
+}
+
+.square.p2 {
+    background-color: #2958db;
+    color: #15203d;
+}
+
+.edgeH.p1 {
+    background: linear-gradient(to bottom, white 33%, #dd4124 33% 67%, white 67%);
+}
+.edgeV.p1 {
+    background: linear-gradient(to right, white 33%, #dd4124 33% 67%, white 67%);
+}
+
+.edgeH.p2 {
+    background: linear-gradient(to bottom, white 33%, #2958db 33% 67%, white 67%);
+}
+.edgeV.p2 {
+    background: linear-gradient(to right, white 33%, #2958db 33% 67%, white 67%);
+}
